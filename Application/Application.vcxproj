@@ -143,8 +143,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Build\Assests\Shader\basic.frag" />
-    <None Include="..\Build\Assests\Shader\basic.vert" />
+    <None Include="..\Build\Assests\Materials\box.mtrl" />
+    <None Include="..\Build\Assests\Shaders\basic.frag" />
+    <None Include="..\Build\Assests\Shaders\basic.prog" />
+    <None Include="..\Build\Assests\Shaders\basic.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

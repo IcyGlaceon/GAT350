@@ -33,24 +33,6 @@ namespace cool
 
     bool Texture::CreateFromSurface(SDL_Surface* surface, Renderer& renderer)
     {
-        /*
-        // destroy the current texture if one exists
-        if (m_texture) glDeleteTextures(1, &m_texture);
-
-        // create texture
-        // !! call SDL_CreateTextureFromSurface passing in renderer and surface
-        m_texture = SDL_CreateTextureFromSurface(renderer.m_renderer, surface);
-
-        // !! call SDL_FreeSurface passing in surface
-        SDL_FreeSurface(surface);
-
-        // check if texture was created
-        if (m_texture == nullptr)
-        {
-            LOG(SDL_GetError());
-            return false;
-        }
-        */
         return true;
     }
 
@@ -64,6 +46,8 @@ namespace cool
             LOG(SDL_GetError());
             return false;
         }
+        FlipSurface(surface);
+
         // create texture
         glGenTextures(1, &m_texture);
         glBindTexture(m_target, m_texture);
@@ -90,5 +74,29 @@ namespace cool
         
         return Vector2{ 0,0 };
     }
+    void Texture::FlipSurface(SDL_Surface* surface)
+    {
+        SDL_LockSurface(surface);
+
+        int pitch = surface->pitch; // row size 
+        uint8_t* temp = new uint8_t[pitch]; // intermediate buffer 
+        uint8_t* pixels = (uint8_t*)surface->pixels;
+
+        for (int i = 0; i < surface->h / 2; ++i) {
+            // get pointers to the two rows to swap 
+            uint8_t* row1 = pixels + i * pitch;
+            uint8_t* row2 = pixels + (surface->h - i - 1) * pitch;
+
+            // swap rows 
+            memcpy(temp, row1, pitch);
+            memcpy(row1, row2, pitch);
+            memcpy(row2, temp, pitch);
+        }
+
+        delete[] temp;
+
+        SDL_UnlockSurface(surface);
+    }
+    
 }
 

@@ -20,7 +20,6 @@ namespace cool
 		if (!success)
 		{
 			LOG("error reading shader file %s.", filename.c_str());
-			return false;
 		}
 		
 		// get shader type arguments

@@ -6,11 +6,9 @@
 
 struct SDL_Texture;
 struct SDL_Surface;
-// !! forward declaration for SDL pointers below (SDL likes to use structs)
 
 namespace cool
 {
-	// !! forward declaration for Renderer below
 	class Renderer;
 
 	class Texture : public Resource
@@ -31,9 +29,11 @@ namespace cool
 		friend class Renderer;
 
 	private:
-		GLuint m_texture;
+		GLuint m_texture = 0;
 		GLenum m_target = GL_TEXTURE_2D;
 		GLuint m_uint = GL_TEXTURE0;
-		//SDL_Texture* m_texture = nullptr;
+
+	private:
+		void FlipSurface(SDL_Surface* surface);
 	};
 }

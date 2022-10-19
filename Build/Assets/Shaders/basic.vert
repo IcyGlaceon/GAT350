@@ -13,6 +13,6 @@ void main()
 {	
 	color = vcolor;
 	texcoord = vtexcoord;
-	vec4 tposition =mvp*  vec4(vposition * scale,1.0);
+	vec4 tposition = mvp*  vec4(vposition * scale,1.0);
 	gl_Position = tposition;
 }

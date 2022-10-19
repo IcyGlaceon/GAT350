@@ -40,6 +40,7 @@ namespace cool
 
 	void Model::Draw(Renderer& renderer, const Transform& transform)
 	{
+		/*
 		Matrix3x3 mx = transform.matrix;
 		//if (m_points.size() == 0) return;
 
@@ -50,6 +51,7 @@ namespace cool
 
 			renderer.DrawLine(p1, p2, m_color);
 		}
+		*/
 	}
 
 

@@ -15,9 +15,6 @@
     <Filter Include="Source\Core">
       <UniqueIdentifier>{968626c5-7d19-4e1e-92ee-d6ac0a29e3c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Renderer">
-      <UniqueIdentifier>{2489225f-fde4-47ac-89d0-c9a8f948d519}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Input">
       <UniqueIdentifier>{8e7434f1-c54e-4a10-b35e-550a3fb2b1b8}</UniqueIdentifier>
     </Filter>
@@ -38,6 +35,9 @@
     </Filter>
     <Filter Include="Source\Physics">
       <UniqueIdentifier>{7e2609ab-24c6-4ca5-884d-c8db90cfd74a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Renderer">
+      <UniqueIdentifier>{2489225f-fde4-47ac-89d0-c9a8f948d519}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +165,9 @@
       <Filter>Source\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\Material.cpp">
+      <Filter>Source\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\VertexBuffer.cpp">
       <Filter>Source\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -332,6 +335,9 @@
       <Filter>Source\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Material.h">
+      <Filter>Source\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\VertexBuffer.h">
       <Filter>Source\Renderer</Filter>
     </ClInclude>
   </ItemGroup>

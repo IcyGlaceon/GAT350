@@ -149,13 +149,14 @@ int main(int argc,char** argv)
 	material->Bind();
 
 		material->GetProgram()->SetUniform("tint", glm::vec3{ 1, 0, 0 });
-		material->GetProgram()->SetUniform("scale", 0.5f);
+		material->GetProgram()->SetUniform("scale", 1.0f);
 
 
 
 	glm::mat4 model{ 1 };
-	glm::mat4 view = glm::lookAt(glm::vec3{ 0,0,-3 }, glm::vec3{ 0,0,0 }, glm::vec3{ 0,1,0 });
 	glm::mat4 projection = glm::perspective(45.0f, cool::g_renderer.GetWidth() / (float)cool::g_renderer.GetHeight(), 0.01f, 100.0f);
+
+	glm::vec3 cameraPosition{ 0,2,2 };
 
 	bool quit = false;
 	while (!quit)
@@ -164,6 +165,9 @@ int main(int argc,char** argv)
 
 		if (cool::g_inputSystem.GetKeyState(cool::key_escape) == cool::InputSystem::KeyState::Pressed) quit = true;
 
+		//add input to move camera
+
+		glm::mat4 view = glm::lookAt(cameraPosition, glm::vec3{ 0,0,0 }, glm::vec3{ 0,1,0 });
 		model = glm::eulerAngleXYZ(0.0f, cool::g_time.time, 0.0f);
 		glm::mat4 mvp = projection * view * model;
 

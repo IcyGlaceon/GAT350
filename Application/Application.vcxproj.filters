@@ -20,16 +20,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Build\Assests\Materials\box.mtrl">
+    <None Include="..\Build\Assets\Materials\box.mtrl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\Build\Assests\Shaders\basic.frag">
+    <None Include="..\Build\Assets\Shaders\basic.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\Build\Assests\Shaders\basic.prog">
+    <None Include="..\Build\Assets\Shaders\basic.prog">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\Build\Assests\Shaders\basic.vert">
+    <None Include="..\Build\Assets\Shaders\basic.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Build\Assets\Materials\ogre.mtrl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

@@ -1,6 +1,6 @@
 { 
     "program":"shaders/basic.prog", 
-    "texture":"textures/catcall.jpg", 
+    "texture":"textures/catcall.png", 
     "ambient":[ 
         1, 
         1, 

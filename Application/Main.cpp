@@ -78,7 +78,10 @@ int main(int argc,char** argv)
 
 	
 	//create material
-	std::shared_ptr<cool::Material> material = cool::g_resources.Get<cool::Material>("materials/box.mtrl");
+	//std::shared_ptr<cool::Material> material = cool::g_resources.Get<cool::Material>("materials/box.mtrl");
+	//material->Bind();
+
+	std::shared_ptr<cool::Material> material = cool::g_resources.Get<cool::Material>("materials/ogre.mtrl");
 	material->Bind();
 
 	//material->GetProgram()->SetUniform("tint", glm::vec3{ 1, 0, 0 });
@@ -90,37 +93,51 @@ int main(int argc,char** argv)
 	glm::vec3 cameraPosition = glm::vec3{ 0, 0, 1 };
 	float speed = 3;
 
+
+	std::vector<cool::Transform> transform;
+	for (size_t i = 0; i < 10; i++) 
+	{
+		//transform.push_back({ { cool::randomf(-10,10) , cool::randomf(-10,10) ,cool::randomf(-10,10)}, {cool::randomf(360),90,0} });
+		transform.push_back({ {0,0,-2 }, { 0,90,0 } });
+	}
+	
+	auto m = cool::g_resources.Get<cool::Model>("models/spot.obj");
+
+
 	bool quit = false;
 	while (!quit)
 	{
 		cool::Engine::Instance().Update();
 
 		if (cool::g_inputSystem.GetKeyState(cool::key_escape) == cool::InputSystem::KeyState::Pressed) quit = true;
-		
-		//glm::mat4 view = glm::lookAt(cameraPosition, glm::vec3{ 0,0,0 }, glm::vec3{ 0,1,0 });
-		glm::mat4 view = glm::lookAt(cameraPosition, cameraPosition + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
-		model = glm::eulerAngleXYZ(0.0f, cool::g_time.time, 0.0f);
-		glm::mat4 mvp = projection * view * model;
-
 		//left/right
 		if (cool::g_inputSystem.GetKeyState(cool::key_a) == cool::InputSystem::KeyState::Held) cameraPosition.x -= speed * cool::g_time.deltaTime;
 		if (cool::g_inputSystem.GetKeyState(cool::key_d) == cool::InputSystem::KeyState::Held) cameraPosition.x += speed * cool::g_time.deltaTime;
 		
 		//up/down
-		if (cool::g_inputSystem.GetKeyState(cool::key_w) == cool::InputSystem::KeyState::Held) cameraPosition.y -= speed * cool::g_time.deltaTime;
-		if (cool::g_inputSystem.GetKeyState(cool::key_s) == cool::InputSystem::KeyState::Held) cameraPosition.y += speed * cool::g_time.deltaTime;
+		if (cool::g_inputSystem.GetKeyState(cool::key_w) == cool::InputSystem::KeyState::Held) cameraPosition.y += speed * cool::g_time.deltaTime;
+		if (cool::g_inputSystem.GetKeyState(cool::key_s) == cool::InputSystem::KeyState::Held) cameraPosition.y -= speed * cool::g_time.deltaTime;
 		
 		//forward/back
 		if (cool::g_inputSystem.GetKeyState(cool::key_q) == cool::InputSystem::KeyState::Held) cameraPosition.z -= speed * cool::g_time.deltaTime;
 		if (cool::g_inputSystem.GetKeyState(cool::key_e) == cool::InputSystem::KeyState::Held) cameraPosition.z += speed * cool::g_time.deltaTime;
+		
 
-
-		//program->SetUniform("scale", std::sin(cool::g_time.time * 3));
-		program->SetUniform("mvp", mvp);
+		glm::mat4 view = glm::lookAt(cameraPosition, cameraPosition + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
+		//model = glm::eulerAngleXYZ(0.0f, cool::g_time.time, 0.0f);
 
 		cool::g_renderer.BeginFrame();
+		
+		for (size_t i = 0; i < transform.size(); i++)
+		{
+			transform[i].rotation += glm::vec3{ 0,90 * cool::g_time.deltaTime,0 };
+			glm::mat4 mvp = projection * view * model * (glm::mat4)transform[i];
+			program->SetUniform("mvp", mvp);
 
-		vb->Draw();
+			//vb->Draw();
+			
+			m->m_vertexBuffer.Draw();
+		}
 
 		cool::g_renderer.EndFrame();
 	}

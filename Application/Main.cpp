@@ -58,6 +58,22 @@ int main(int argc,char** argv)
 
 	cool::g_renderer.CreateWindow("Neumont", 800, 600);
 	LOG("Window Initalized... ");
+
+
+	// load scene 
+	auto scene = std::make_unique<cool::Scene>();
+
+	rapidjson::Document document;
+	bool success = cool::json::Load("scenes/basic.scn", document);
+	if (!success)
+	{
+		LOG("error loading scene file %s.", "scenes/basic.scn");
+	}
+	else
+	{
+		scene->Read(document);
+		scene->Initialize();
+	}
 	
 	std::shared_ptr<cool::VertexBuffer> vb = cool::g_resources.Get<cool::VertexBuffer>("box");
 	vb->CreateVertexBuffer(sizeof(vertices), 36, vertices);
@@ -95,13 +111,13 @@ int main(int argc,char** argv)
 
 
 	std::vector<cool::Transform> transform;
-	for (size_t i = 0; i < 10; i++) 
+	for (size_t i = 0; i < 1; i++) 
 	{
 		//transform.push_back({ { cool::randomf(-10,10) , cool::randomf(-10,10) ,cool::randomf(-10,10)}, {cool::randomf(360),90,0} });
 		transform.push_back({ {0,0,-2 }, { 0,90,0 } });
 	}
 	
-	auto m = cool::g_resources.Get<cool::Model>("models/spot.obj");
+	auto m = cool::g_resources.Get<cool::Model>("models/ogre.obj");
 
 
 	bool quit = false;
@@ -126,6 +142,8 @@ int main(int argc,char** argv)
 		glm::mat4 view = glm::lookAt(cameraPosition, cameraPosition + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
 		//model = glm::eulerAngleXYZ(0.0f, cool::g_time.time, 0.0f);
 
+		scene->Update();
+
 		cool::g_renderer.BeginFrame();
 		
 		for (size_t i = 0; i < transform.size(); i++)
@@ -134,14 +152,14 @@ int main(int argc,char** argv)
 			glm::mat4 mvp = projection * view * model * (glm::mat4)transform[i];
 			program->SetUniform("mvp", mvp);
 
-			//vb->Draw();
-			
 			m->m_vertexBuffer.Draw();
 		}
 
+		scene->Draw(cool::g_renderer);
+
 		cool::g_renderer.EndFrame();
 	}
-
+	scene->RemoveAll();
 	cool::Engine::Instance().Shutdown();
 	return 0;
 }

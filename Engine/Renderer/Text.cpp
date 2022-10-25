@@ -20,7 +20,7 @@ namespace cool
 		SDL_Color c{ color.r, color.g, color.b, color.a };
 		SDL_Surface* surface = TTF_RenderText_Solid(m_font->m_ttfFont, text.c_str(), c);
 
-		m_texture = SDL_CreateTextureFromSurface(renderer.m_renderer, surface);
+		m_texture = SDL_CreateTextureFromSurface(renderer.renderer, surface);
 		SDL_FreeSurface(surface);
 	}
 
@@ -31,6 +31,6 @@ namespace cool
 
 		SDL_Rect rect{ (int)position.x, (int)position.y, width, height };
 
-		SDL_RenderCopy(renderer.m_renderer, m_texture, NULL, &rect);
+		SDL_RenderCopy(renderer.renderer, m_texture, NULL, &rect);
 	}
 }

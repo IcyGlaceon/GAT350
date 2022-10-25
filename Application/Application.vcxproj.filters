@@ -35,5 +35,8 @@
     <None Include="..\Build\Assets\Materials\ogre.mtrl">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\Build\Assets\Scenes\basic.scn">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

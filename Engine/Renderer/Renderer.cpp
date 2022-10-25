@@ -14,9 +14,6 @@ namespace cool
 		SDL_Init(SDL_INIT_VIDEO);
 		IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 		TTF_Init();
-
-		m_view = Matrix3x3::identity;
-		m_viewport = Matrix3x3::identity;
 	}
 
 	void Renderer::Shutdown()
@@ -66,26 +63,26 @@ namespace cool
 
 	void Renderer::DrawLine(float x1, float y1, float x2, float y2)
 	{
-		SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
-		SDL_RenderDrawLineF(m_renderer, x1, y1, x2, y2);
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		SDL_RenderDrawLineF(renderer, x1, y1, x2, y2);
 	}
 
 	void Renderer::DrawLine(const Vector2& v1, const Vector2& v2, const Color& color)
 	{
-		SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
-		SDL_RenderDrawLineF(m_renderer, v1.x, v1.y, v2.x, v2.y);
+		SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+		SDL_RenderDrawLineF(renderer, v1.x, v1.y, v2.x, v2.y);
 	}
 
 	void Renderer::DrawPoint(float x, float y)
 	{
-		SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
-		SDL_RenderDrawPointF(m_renderer, x, y);
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		SDL_RenderDrawPointF(renderer, x, y);
 	}
 
 	void Renderer::DrawPoint(const Vector2& v, const Color& color)
 	{
-		SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
-		SDL_RenderDrawPointF(m_renderer, v.x, v.y);
+		SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+		SDL_RenderDrawPointF(renderer, v.x, v.y);
 	}
 
 	void Renderer::Draw(std::shared_ptr<Texture> texture, const Vector2& position, float angle, const Vector2& scale, const Vector2& registration)
@@ -104,7 +101,7 @@ namespace cool
 
 		SDL_Point center{ (int)origin.x, (int)origin.y };
 				
-		//SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, angle, &center, SDL_FLIP_NONE);*/
+		//SDL_RenderCopyEx(renderer, texture->m_texture, nullptr, &dest, angle, &center, SDL_FLIP_NONE);*/
 	}
 
 	void Renderer::Draw(std::shared_ptr<Texture> texture, const Transform& transform, const Vector2& registration)
@@ -124,7 +121,7 @@ namespace cool
 
 		SDL_Point center{ (int)origin.x, (int)origin.y };
 
-		//SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, transform.rotation, &center, SDL_FLIP_NONE);
+		//SDL_RenderCopyEx(renderer, texture->m_texture, nullptr, &dest, transform.rotation, &center, SDL_FLIP_NONE);
 		*/
 	}
 
@@ -154,7 +151,7 @@ namespace cool
 		SDL_Point center{ (int)origin.x, (int)origin.y };
 
 		SDL_RendererFlip flip = (flipH) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-		//SDL_RenderCopyEx(m_renderer, texture->m_texture, &src, &dest, math::RadToDeg(mx.GetRotation()), &center, flip);
+		//SDL_RenderCopyEx(renderer, texture->m_texture, &src, &dest, math::RadToDeg(mx.GetRotation()), &center, flip);
 	}*/
 	}
 

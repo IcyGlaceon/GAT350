@@ -61,8 +61,9 @@ int main(int argc,char** argv)
 
 
 	// load scene 
-	auto scene = std::make_unique<cool::Scene>();
+	auto scene = cool::g_resources.Get<cool::Scene>("scenes/basic.scn");
 
+	/*
 	rapidjson::Document document;
 	bool success = cool::json::Load("scenes/basic.scn", document);
 	if (!success)
@@ -74,7 +75,8 @@ int main(int argc,char** argv)
 		scene->Read(document);
 		scene->Initialize();
 	}
-	
+	*/
+
 	std::shared_ptr<cool::VertexBuffer> vb = cool::g_resources.Get<cool::VertexBuffer>("box");
 	vb->CreateVertexBuffer(sizeof(vertices), 36, vertices);
 	vb->SetAttribute(0, 3, 8 * sizeof(float), 0);

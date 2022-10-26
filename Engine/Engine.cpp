@@ -55,5 +55,6 @@ namespace cool
 		REGISTER_CLASS(TextComponent);
 		REGISTER_CLASS(TilemapComponent);
 		REGISTER_CLASS(CameraComponent);
+		REGISTER_CLASS(CameraController);
 	}
 }

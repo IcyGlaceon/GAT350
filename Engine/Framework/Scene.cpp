@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "Factory.h"
+#include "Engine.h"
 #include <algorithm>
 #include <iostream>
 
@@ -29,6 +30,15 @@ namespace cool
 
 	void Scene::Draw(Renderer& renderer)
 	{
+		// get camera / set renderer view/projection 
+		auto camera = GetActorFromName("Camera");
+		if (camera)
+		{
+			g_renderer.SetView(camera->GetComponent<CameraComponent>() -> GetView());
+			g_renderer.SetProjection(camera->GetComponent<CameraComponent>() -> GetProjection());
+		}
+
+		// draw actors 
 		for (auto& actor : m_actors)
 		{
 			actor->Draw(renderer);
@@ -46,6 +56,24 @@ namespace cool
 		for (auto& actor : m_actors) { actor->SetDestroy(); }
 
 		m_actors.clear();
+	}
+
+	bool Scene::Create(std::string name, ...)
+	{
+		rapidjson::Document document;
+		bool success = cool::json::Load("scenes/basic.scn", document);
+		if (!success)
+		{
+			LOG("error loading scene file %s.", "scenes/basic.scn");
+			return false;
+		}
+		else
+		{
+			Read(document);
+			Initialize();
+		}
+
+		return true;
 	}
 
 	bool Scene::Write(const rapidjson::Value& value) const

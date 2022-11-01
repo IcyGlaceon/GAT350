@@ -16,7 +16,7 @@
         ], 
         "rotation": [ 
           0, 
-          180, 
+          0, 
           0 
         ] 
       }, 
@@ -27,29 +27,34 @@
           "material_name": "Materials/ogre.mtrl" 
         } 
       ] 
-    }, 
-    { 
-      "type": "Actor", 
-      "name": "Camera", 
-      "transform": { 
-        "position": [ 
-          0, 
-          0, 
-          -4 
-        ] 
-      }, 
-      "components": [ 
-        { 
-          "type": "CameraComponent", 
-          "fov": 45, 
-          "near": 0.1, 
-          "far": 100 
-        }, 
-        { 
-          "type": "CameraController", 
-          "speed": 4 
-        } 
-      ] 
-    } 
+    },
+    {
+      "type": "Actor",
+      "name": "Camera",
+      "transform": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "rotation": [
+          0,
+          180,
+          0
+        ]
+      },
+      "components": [
+        {
+          "type": "CameraComponent",
+          "fov": 45,
+          "near": 0.1,
+          "far": 100
+        },
+        {
+          "type": "CameraController",
+          "speed": 4
+        }
+      ]
+    }
   ] 
 } 

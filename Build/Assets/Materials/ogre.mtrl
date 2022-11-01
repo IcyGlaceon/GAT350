@@ -1,19 +1,9 @@
 { 
-    "program":"shaders/basic.prog", 
+    "program":"shaders/basic_lit.prog", 
     "texture":"textures/ogre_diffuse.bmp", 
-    "ambient":[ 
+    "color":[ 
         1, 
-        1, 
-        1 
-    ], 
-    "diffuse":[ 
-        1, 
-        1, 
-        1 
-    ], 
-    "specular":[ 
-        1, 
-        1, 
+        1,
         1 
     ], 
     "shininess":100 

@@ -44,6 +44,8 @@ namespace cool
 			AddShader(fshader);
 		}
 
+		Link();
+
 		return true;
 	}
 	void Program::AddShader(const std::shared_ptr<Shader>& shader)
@@ -105,21 +107,34 @@ namespace cool
 	}
 	void Program::SetUniform(const std::string& name, int value)
 	{
+		GLint uniform = GetUniform(name);
+		if (uniform != -1) glUniform1i(uniform, value);
 	}
 	void Program::SetUniform(const std::string& name, unsigned int value)
 	{
+		GLint uniform = GetUniform(name);
+		if (uniform != -1) glUniform1ui(uniform, value);
 	}
 	void Program::SetUniform(const std::string& name, bool value)
 	{
+		GLint uniform = GetUniform(name);
+		if (uniform != -1) glUniform1i(uniform, value);
 	}
 	void Program::SetUniform(const std::string& name, const glm::vec2& value)
 	{
+		GLint uniform = GetUniform(name);
+		if (uniform != -1) glUniform2fv(uniform, 1, &value[0]);
 	}
 	void Program::SetUniform(const std::string& name, const glm::vec4& value)
 	{
+		GLint uniform = GetUniform(name);
+		if (uniform != -1) glUniform4fv(uniform, 1, &value[0]);
 	}
 	void Program::SetUniform(const std::string& name, const glm::mat3& value)
 	{
+		GLint uniform = GetUniform(name);
+		if (uniform != -1)
+			glUniformMatrix3fv(uniform, 1, GL_FALSE, glm::value_ptr(value));
 	}
 	GLint Program::GetUniform(const std::string& name)
 	{

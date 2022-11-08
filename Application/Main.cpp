@@ -59,7 +59,7 @@ int main(int argc, char** argv)
 	cool::g_renderer.CreateWindow("Neumont", 800, 600);
 	LOG("Window Initalized... ");
 
-	auto scene = cool::g_resources.Get<cool::Scene>("scenes/basic_lit.scn");
+	auto scene = cool::g_resources.Get<cool::Scene>("scenes/texture.scn");
 
 	bool quit = false;
 	while (!quit)
@@ -74,6 +74,12 @@ int main(int argc, char** argv)
 			actor->m_transform.rotation.y += cool::g_time.deltaTime * 90.0f;
 		}
 
+		auto material = cool::g_resources.Get<cool::Material>("Materials/multi.mtrl");
+		if (material)
+		{
+			//material->uv_offset += glm::vec2(cool::g_time.deltaTime);
+		}
+
 		scene->Update();
 
 		cool::g_renderer.BeginFrame();
@@ -84,5 +90,6 @@ int main(int argc, char** argv)
 	}
 	scene->RemoveAll();
 	cool::Engine::Instance().Shutdown();
+
 	return 0;
 }

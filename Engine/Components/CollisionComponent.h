@@ -28,7 +28,7 @@ namespace cool
 
 	private:
 		PhysicsSystem::CollisionData data;
-		Vector2 scale_offset = Vector2{ 1, 1 };
+		Vector2 scale_offset = { 1, 1 };
 
 		functionPtr m_enterFunction;
 		functionPtr m_exitFunction;

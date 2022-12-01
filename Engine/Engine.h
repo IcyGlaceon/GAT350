@@ -2,15 +2,16 @@
 
 #include "Serialization/Json.h"
 #include "Renderer/Model.h"
+#include "Renderer/GUI.h"
 
 #include "Core/Memory.h"
 #include "Core/File.h"
 #include "Core/Time.h"
 #include "Core/Logger.h"
+#include "Core/Utilities.h"
 
 #include "Math/MathUtils.h"
 #include "Math/Random.h"
-#include "glm/glm.hpp"
 
 #include "Framework/Scene.h"
 #include "Framework/Game.h"
@@ -20,10 +21,10 @@
 
 #include "Components/PlayerComponent.h"
 #include "Components/AudioComponent.h"
-#include "Components/CollisionComponent.h"
+#include "Components/ModelComponent.h"
 #include "Components/PhysicsComponent.h"
 #include "Components/RBPhysicsComponent.h"
-#include "Components/ModelComponent.h"
+#include "Components/CollisionComponent.h"
 #include "Components/SpriteComponent.h"
 #include "Components/SpriteAnimComponent.h"
 #include "Components/TextComponent.h"
@@ -46,6 +47,10 @@
 #include "Renderer/Program.h"
 #include "Renderer/Material.h"
 #include "Renderer/VertexBuffer.h"
+#include "Renderer/CubemapTexture.h"
+#include "Renderer/Framebuffer.h"
+
+#include "glm/glm.hpp"
 
 #include <memory>
 #include <vector>
@@ -61,6 +66,7 @@ namespace cool
 	extern ResourceManager g_resources;
 	extern PhysicsSystem g_physicsSystem;
 	extern EventManager g_eventManager;
+	extern GUI g_GUI;
 	
 	class Engine : public Singleton<Engine>
 	{

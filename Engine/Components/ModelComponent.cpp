@@ -11,9 +11,8 @@ namespace cool
 		material->Bind();
 		// set model view projection matrix for model 
 		material->GetProgram()->SetUniform("model", (glm::mat4)m_owner->m_transform);
-		material->GetProgram()->SetUniform("view", renderer.GetView());
-		material->GetProgram()->SetUniform("projection", renderer.GetProjection());
-
+		
+		glDepthMask(depth_test);
 		model->m_vertexBuffer.Draw();
 	}
 
@@ -27,13 +26,15 @@ namespace cool
 		std::string model_name;
 		READ_DATA(value, model_name);
 
-		model = g_resources.Get<Model>(model_name);
+		model = g_resources.Get<cool::Model>(model_name);
 
 		// read material name 
 		std::string material_name;
 		READ_DATA(value, material_name);
 		// get material from material name 
 		material = g_resources.Get<cool::Material>(material_name);
+
+		READ_DATA(value, depth_test);
 
 		return true;
 	}

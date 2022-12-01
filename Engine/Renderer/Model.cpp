@@ -48,6 +48,15 @@ namespace cool
             vertex.normal = { mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z };
             vertex.tangent = { mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z };
 
+            if (mesh->mTangents)
+            {
+                vertex.tangent = { mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z };
+            }
+            else
+            {
+                vertex.tangent = { 0, 0, 0 };
+            }
+
             if (mesh->mTextureCoords[0])
             {
                 vertex.texcoord = { mesh->mTextureCoords[0][i].x, mesh -> mTextureCoords[0][i].y };
@@ -82,5 +91,4 @@ namespace cool
         // create index vertex buffer 
         m_vertexBuffer.CreateIndexBuffer(GL_UNSIGNED_INT, (GLsizei)indices.size(), indices.data());
     }
-
 }

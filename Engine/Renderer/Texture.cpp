@@ -36,6 +36,46 @@ namespace cool
         return true;
     }
 
+    bool Texture::CreateTexture(int width, int height)
+    {
+        m_target = GL_TEXTURE_2D;
+        m_width = width;
+        m_height = height;
+
+        glGenTextures(1, &m_texture);
+        glBindTexture(m_target, m_texture);
+
+        // create texture (width, height)
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+        glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+        return true;
+    }
+
+    bool Texture::CreateDepthTexture(int width, int height)
+    {
+        m_target = GL_TEXTURE_2D;
+        m_width = width;
+        m_height = height;
+
+        glGenTextures(1, &m_texture);
+        glBindTexture(m_target, m_texture);
+
+        // create texture (width, height)
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+
+        glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+        return true;
+    }
+
     bool Texture::Load(const std::string& filename, Renderer& renderer)
     {
         // load surface
@@ -52,8 +92,12 @@ namespace cool
         glGenTextures(1, &m_texture);
         glBindTexture(m_target, m_texture);
 
-        GLenum format = (surface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
-        glTexImage2D(m_target, 0, format, surface->w, surface->h, 0, format, GL_UNSIGNED_BYTE, surface->pixels);
+        LOG("%s : width = %d | height = %d | pixel format = %s", filename.c_str(), surface->w, surface->h, SDL_GetPixelFormatName(surface->format->format));
+
+        GLenum internalFormat = GetInternalFormat(surface->format->format);
+        GLint format = (surface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
+
+        glTexImage2D(m_target, 0, format, surface->w, surface->h, 0, internalFormat, GL_UNSIGNED_BYTE, surface->pixels);
 
         glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -96,6 +140,32 @@ namespace cool
         delete[] temp;
 
         SDL_UnlockSurface(surface);
+    }
+
+    GLenum Texture::GetInternalFormat(GLuint format)
+    {
+        GLenum internalFormat = SDL_PIXELFORMAT_UNKNOWN;
+        switch (format)
+        {
+        case SDL_PIXELFORMAT_RGB888:
+        case SDL_PIXELFORMAT_RGB24:
+            internalFormat = GL_RGB;
+            break;
+        case SDL_PIXELFORMAT_BGR888:
+        case SDL_PIXELFORMAT_BGR24:
+            internalFormat = GL_BGR;
+            break;
+        case SDL_PIXELFORMAT_RGBA8888:
+        case SDL_PIXELFORMAT_RGBA32:
+            internalFormat = GL_RGBA;
+            break;
+        case SDL_PIXELFORMAT_BGRA8888:
+        case SDL_PIXELFORMAT_BGRA32:
+            internalFormat = GL_BGRA;
+            break;
+        }
+
+        return internalFormat;
     }
     
 }

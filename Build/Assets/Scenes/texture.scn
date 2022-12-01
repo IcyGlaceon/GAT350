@@ -1,4 +1,6 @@
 {
+  "clear_color": [ 0, 0, 0 ],
+  "ambient_color": [ 0.2, 0.2, 0.2 ],
   "actors": [
     {
       "type": "Actor",
@@ -17,7 +19,7 @@
         "rotation": [
           0,
           0,
-          0 
+          0
         ]
       },
       "components": [
@@ -33,10 +35,43 @@
       "name": "Light",
       "transform": {
         "position": [
-          2,
           0,
-          5
-
+          3,
+          1
+        ],
+        "rotation": [
+          85,
+          0,
+          0
+        ]
+      },
+      "components": [
+        {
+          "type": "LightComponent",
+          "color": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "type_name": "point",
+          "cutoff": 25.0,
+          "exponent": 10.0
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "Light2",
+      "transform": {
+        "position": [
+          -3,
+          3,
+          1
+        ],
+        "rotation": [
+          85,
+          0,
+          0
         ]
       },
       "components": [
@@ -44,9 +79,41 @@
           "type": "LightComponent",
           "color": [
             1.0,
-            1.0,
+            0.0,
+            0.0
+          ],
+          "type_name": "point",
+          "cutoff": 25.0,
+          "exponent": 10.0
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "Light3",
+      "transform": {
+        "position": [
+          3,
+          3,
+          1
+        ],
+        "rotation": [
+          85,
+          0,
+          0
+        ]
+      },
+      "components": [
+        {
+          "type": "LightComponent",
+          "color": [
+            0.0,
+            0.0,
             1.0
-          ]
+          ],
+          "type_name": "point",
+          "cutoff": 25.0,
+          "exponent": 10.0
         }
       ]
     },
@@ -74,7 +141,7 @@
         },
         {
           "type": "CameraController",
-          "speed": 4
+          "speed": 2
         }
       ]
     }

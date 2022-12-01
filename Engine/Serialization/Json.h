@@ -5,6 +5,7 @@
 #include <vector>
 
 #define READ_DATA(value, data) cool::json::Get(value, #data, data)
+#define READ_NAME_DATA(value, name, data) cool::json::Get(value, name, data) 
 
 namespace cool
 {
@@ -14,7 +15,7 @@ namespace cool
 
 	namespace json
 	{
-		bool Load(const std::string& filename, rapidjson::Document& document);
+		bool Load(const std::string filename, rapidjson::Document& document);
 
 		bool Get(const rapidjson::Value& value, const std::string& name, int& data);
 		bool Get(const rapidjson::Value& value, const std::string& name, float& data);

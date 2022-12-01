@@ -6,7 +6,7 @@ namespace cool
 {
 	AudioComponent::~AudioComponent()
 	{
-		Stop();
+		m_channel.Stop();
 	}
 
 	void AudioComponent::Initialize()
@@ -23,7 +23,7 @@ namespace cool
 
 	void AudioComponent::Play()
 	{
-		m_channel.Stop();
+		Stop();
 		m_channel = g_audioSystem.PlayAudio(sound_name, volume, pitch, loop);
 	}
 

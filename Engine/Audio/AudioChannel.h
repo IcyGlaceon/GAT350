@@ -2,7 +2,6 @@
 
 namespace FMOD
 {
-	// ! forward declare FMOD Channel
 	class Channel;
 }
 

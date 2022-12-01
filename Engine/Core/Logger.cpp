@@ -16,10 +16,6 @@ namespace cool
 		vsprintf_s(str, 1024, format, args);
 
 		std::cout << str << std::endl;
-				
-		//WCHAR str[1024];
-		//_vsnwprintf(str, 1024, format, args);
-		//OutputDebugString(str);
 
 		va_end(args);
 	}

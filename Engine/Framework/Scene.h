@@ -19,13 +19,15 @@ namespace cool
 		Scene(const Scene& other) {}
 		~Scene() = default;
 
+		virtual bool Create(std::string name, ...) override;
 		CLASS_DECLARATION(Scene)
 
 		void Initialize() override;
 		void Update() override;
-		void Draw(Renderer& renderer);
 
-		virtual bool Create(std::string name, ...) override;
+		void PreRender(Renderer& renderer);
+		void Render(Renderer& renderer);
+
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
 
@@ -44,7 +46,7 @@ namespace cool
 		Game* GetGame() { return m_game; }
 
 	private:
-		Game* m_game =nullptr;
+		Game* m_game;
 		std::list<std::unique_ptr<Actor>> m_actors;
 
 	};

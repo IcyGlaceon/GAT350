@@ -6,6 +6,24 @@
 
 namespace cool
 {
+	bool Scene::Create(std::string name, ...)
+	{
+		rapidjson::Document document;
+		bool success = cool::json::Load(name, document);
+		if (!success)
+		{
+			LOG("error loading scene file %s.", name);
+			return false;
+		}
+		else
+		{
+			Read(document);
+			Initialize();
+
+			return true;
+		}
+	}
+
 	void Scene::Initialize()
 	{
 		for (auto& actor : m_actors) { actor->Initialize(); }
@@ -28,7 +46,48 @@ namespace cool
 		}
 	}
 
-	void Scene::Draw(Renderer& renderer)
+	void Scene::PreRender(Renderer& renderer)
+	{
+		CameraComponent* camera = nullptr;
+		for (auto& actor : m_actors) {
+			if (!actor->IsActive()) {
+				continue;
+			}
+
+			auto component = actor->GetComponent<CameraComponent>();
+			if (component) {
+				camera = component;
+				break;
+			}
+		}
+
+		std::vector<LightComponent*> lights;
+		for (auto& actor : m_actors) {
+			if (!actor->IsActive()) {
+				continue;
+			}
+
+			auto component = actor->GetComponent<LightComponent>();
+			if (component) {
+				lights.push_back(component);
+			}
+		}
+
+		auto programs = g_resources.Get<Program>();
+		for (auto& program : programs) {
+			camera->SetProgram(program);
+
+			int index = 0;
+			for (auto light : lights) {
+				light->SetProgram(program, index++);
+			}
+
+			program->SetUniform("light_count", index);
+			program->SetUniform("ambient_color", g_renderer.ambient_color);
+		}
+	}
+
+	void Scene::Render(Renderer& renderer)
 	{
 		// get camera / set renderer view/projection 
 		auto camera = GetActorFromName("Camera");
@@ -58,23 +117,6 @@ namespace cool
 		m_actors.clear();
 	}
 
-	bool Scene::Create(std::string name, ...)
-	{
-		rapidjson::Document document;
-		bool success = cool::json::Load(name, document);
-		if (!success)
-		{
-			LOG("error loading scene file %s.", name);
-			return false;
-		}
-		else
-		{
-			Read(document);
-			Initialize();
-		}
-
-		return true;
-	}
 
 	bool Scene::Write(const rapidjson::Value& value) const
 	{

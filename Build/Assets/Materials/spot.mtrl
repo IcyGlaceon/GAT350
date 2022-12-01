@@ -1,0 +1,10 @@
+{
+  "program": "Shaders/basic_phong.prog",
+  "texture": "Textures/spot.png",
+  "color": [
+    1,
+    1,
+    1
+  ],
+  "shininess": 32
+}

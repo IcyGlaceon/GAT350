@@ -1,0 +1,10 @@
+{
+  "program": "Shaders/basic_phong.prog",
+  "texture": "Textures/wood.png",
+  "color": [
+    1,
+    1,
+    1
+  ],
+  "shininess": 256
+}

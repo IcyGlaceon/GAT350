@@ -1,4 +1,5 @@
 #pragma once
+#include "Math/Transform.h"
 #include "Serialization/Serializable.h"
 
 #define CLASS_DECLARATION(class) \

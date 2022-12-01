@@ -3,13 +3,16 @@
 
 namespace cool
 {
+	class Program;
+
 	class CameraComponent : public Component
 	{
 	public:
 		CLASS_DECLARATION(CameraComponent)
 
-			void Update() override;
+		void Update() override;
 
+		void SetProgram(std::shared_ptr<Program> program);
 
 		void SetPerspective(float fov, float aspectRatio, float near, float far);
 
@@ -18,6 +21,7 @@ namespace cool
 
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
+
 
 	public:
 		glm::mat4 m_projection{ 1 };

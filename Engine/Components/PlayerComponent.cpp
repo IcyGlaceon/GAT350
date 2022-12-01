@@ -1,5 +1,6 @@
 #include "PlayerComponent.h"
 #include "Engine.h"
+#include "Framework/Game.h"
 #include <iostream>
 
 namespace cool
@@ -13,11 +14,11 @@ namespace cool
 	{
 		// move left/right
 		Vector2 direction = Vector2::zero;
-		if (g_inputSystem.GetKeyState(key_left) == InputSystem::KeyState::Held)
+		if (g_inputSystem.GetState(key_left) == InputSystem::State::Held)
 		{
 			direction = Vector2::left;
 		}
-		if (g_inputSystem.GetKeyState(key_right) == InputSystem::KeyState::Held)
+		if (g_inputSystem.GetState(key_right) == InputSystem::State::Held)
 		{
 			direction = Vector2::right;
 		}
@@ -34,7 +35,7 @@ namespace cool
 		}
 
 		// jump
-		if (m_groundCount > 0 && g_inputSystem.GetKeyState(key_space) == InputSystem::KeyState::Pressed)
+		if (m_groundCount > 0 && g_inputSystem.GetState(key_space) == InputSystem::State::Pressed)
 		{
 			auto component = m_owner->GetComponent<PhysicsComponent>();
 			if (component)

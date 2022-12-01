@@ -9,6 +9,7 @@ namespace cool
 	ResourceManager g_resources;
 	PhysicsSystem g_physicsSystem;
 	EventManager g_eventManager;
+	GUI g_GUI;
 
 	void Engine::Initialize()
 	{
@@ -29,11 +30,17 @@ namespace cool
 		g_resources.Shutdown();
 		g_inputSystem.Shutdown();
 		g_audioSystem.Shutdown();
+		g_GUI.Shutdown();
 		g_renderer.Shutdown();
 	}
 
 	void Engine::Update()
 	{
+		SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+			g_GUI.Update(event);
+		}
+
 		g_time.Tick();
 		g_eventManager.Update();
 		g_physicsSystem.Update();
@@ -46,9 +53,9 @@ namespace cool
 		REGISTER_CLASS(Actor);
 		REGISTER_CLASS(AudioComponent);
 		REGISTER_CLASS(ModelComponent);
-		REGISTER_CLASS(CollisionComponent);
 		REGISTER_CLASS(PhysicsComponent);
 		REGISTER_CLASS(RBPhysicsComponent);
+		REGISTER_CLASS(CollisionComponent);
 		REGISTER_CLASS(PlayerComponent);
 		REGISTER_CLASS(SpriteComponent);
 		REGISTER_CLASS(SpriteAnimComponent);

@@ -1,17 +1,15 @@
 #pragma once
-#include "../Math/Vector2.h"
+#include "Math/MathUtils.h"
 #include <cstdint>
 #include <vector>
-#include <map>
 #include <array>
-#include <string>
 
 namespace cool
 {
 	class InputSystem
 	{
 	public:
-		enum class KeyState
+		enum State
 		{
 			Idle,
 			Pressed,
@@ -28,29 +26,29 @@ namespace cool
 
 		void Update();
 
-		KeyState GetKeyState(uint32_t key);
-		KeyState GetKeyState(const std::string& key);
+		State GetState(uint32_t key);
 
 		bool GetKeyDown(uint32_t key) { return m_keyboardState[key]; }
-		bool GetKeyDown(const std::string& key);
-
-		bool GetPreviousKeyDown(uint32_t key) { return m_prevKeyboardState[key]; }
-		bool GetPreviousKeyDown(const std::string& key);
-
-		const Vector2& GetMousePosition() const { return m_mousePosition; }
 		
-		KeyState GetButtonState(uint32_t button);
+		bool GetPreviousKeyDown(uint32_t key) { return m_prevKeyboardState[key]; }
+		
+		const glm::vec2& GetMousePosition() const { return m_mousePosition; }
+		const glm::vec2& GetMouseRelative() const { return m_mouseRelative; }
+
+		State GetButtonState(uint32_t button);
 		bool GetButtonDown(uint32_t button) { return m_mouseButtonState[button]; }
 		bool GetPreviousButtonDown(uint32_t button) { return m_prevMouseButtonState[button]; }
 
 	private:
-		// keyboard
+		int m_numKeys;
+
 		std::vector<uint8_t> m_keyboardState;
 		std::vector<uint8_t> m_prevKeyboardState;
 
-		// mouse
-		Vector2 m_mousePosition;
-		
+		glm::vec2 m_mousePosition;
+		glm::vec2 m_prevMousePosition;
+		glm::vec2 m_mouseRelative;
+
 		std::array<uint8_t, 3> m_mouseButtonState;
 		std::array<uint8_t, 3> m_prevMouseButtonState;
 

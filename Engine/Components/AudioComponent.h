@@ -4,6 +4,8 @@
 
 namespace cool
 {
+	class Actor;
+
 	class AudioComponent : public Component
 	{
 	public:

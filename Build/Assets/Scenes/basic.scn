@@ -1,32 +1,32 @@
-{ 
-  "actors": [ 
-    { 
-      "type": "Actor", 
-      "name": "Ogre", 
-      "transform": { 
-        "position": [ 
-          0, 
-          0, 
-          0 
-        ], 
-        "scale": [ 
-          1, 
-          1, 
-          1 
-        ], 
-        "rotation": [ 
-          0, 
-          0, 
-          0 
-        ] 
-      }, 
-      "components": [ 
-        { 
-          "type": "ModelComponent", 
-          "model_name": "Models/cube.obj", 
-          "material_name": "Materials/ogre.mtrl" 
-        } 
-      ] 
+{
+  "actors": [
+    {
+      "type": "Actor",
+      "name": "Ogre",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model_name": "Models/ogre.obj",
+          "material_name": "Materials/ogre.mtrl"
+        }
+      ]
     },
     {
       "type": "Actor",
@@ -56,5 +56,5 @@
         }
       ]
     }
-  ] 
-} 
+  ]
+}

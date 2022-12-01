@@ -21,8 +21,11 @@ namespace cool
 		template <typename T, typename ... TArgs>
 		std::shared_ptr<T> Get(const std::string& name, TArgs... args);
 
-		template <typename T> 
+		template <typename T>
 		std::vector<std::shared_ptr<T>> Get();
+
+		template <typename T>
+		void Add(const std::string& name, std::shared_ptr<T> resource);
 
 	private:
 		std::map<std::string, std::shared_ptr<Resource>> m_resources;
@@ -32,8 +35,6 @@ namespace cool
 	inline std::shared_ptr<T> ResourceManager::Get(const std::string& name, TArgs... args)
 	{
 		std::string lowerName = ToLower(name);
-
-
 		if (m_resources.find(lowerName) != m_resources.end())
 		{
 			// found
@@ -41,7 +42,7 @@ namespace cool
 		}
 		else
 		{
-			// not found, create resource and enter into resources
+			// not found, create reasource and enter into resources
 			std::shared_ptr<T> resource = std::make_shared<T>();
 			resource->Create(name, args...);
 			m_resources[lowerName] = resource;
@@ -68,15 +69,10 @@ namespace cool
 
 		return result;
 	}
+	template<typename T>
+	inline void ResourceManager::Add(const std::string& name, std::shared_ptr<T> resource)
+	{
+		std::string lowerName = ToLower(name);
+		m_resources[lowerName] = resource;
+	}
 }
-
-
-// vector [#,#,#,#] -> [#,#,#,#,#,#] 
-// [4] [#,#,#,#] :(
-// list [#] --> [#] ---> [#] 
-
-// map <key, data>
-// [key] -> data
-// [key] -> data
-// [key] -> data
-// [key] -> data
